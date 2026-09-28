@@ -1,0 +1,17 @@
+services:
+  tibo-feishu:
+    build: .
+    env_file: .env
+    environment:
+      DB_PATH: /data/tibo.sqlite3
+    volumes:
+      - tibo-data:/data
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+
+volumes:
+  tibo-data:
