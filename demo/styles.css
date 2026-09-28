@@ -218,6 +218,7 @@ h2 { letter-spacing: -.077em; font-weight: 830; }
 .terminal-prompt { color: #ff866e; padding-right: 8px; }
 .command-line { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #30383a; padding: 8px 10px 8px 12px; border-radius: 7px; margin-left: -12px; width: calc(100% + 12px); }
 .command-line p { margin: 0; overflow-x: auto; }
+.clone-line p { white-space: normal; overflow-wrap: anywhere; }
 .command-line code { color: #d9f199; font-family: inherit; }
 .command-line button { border: 1px solid #586364; background: #3c4748; color: #fff; padding: 6px 10px; border-radius: 5px; font-family: inherit; font-size: 10px; flex: 0 0 auto; }
 .command-line button:hover { background: var(--accent); border-color: var(--accent); }

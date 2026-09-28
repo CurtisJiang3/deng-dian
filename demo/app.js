@@ -14,7 +14,7 @@ const toastText = document.getElementById('toastText');
 const drawer = document.getElementById('detailDrawer');
 const backdrop = document.getElementById('drawerBackdrop');
 const closeDrawerButton = document.getElementById('closeDrawer');
-const copyCommandButton = document.getElementById('copyCommand');
+const copyButtons = [...document.querySelectorAll('[data-copy-target]')];
 let activeState = 'announce';
 let toastTimer;
 let lastFocusedElement;
@@ -141,25 +141,27 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && drawer.classList.contains('is-visible')) closeDrawer();
 });
 
-copyCommandButton.addEventListener('click', async () => {
-  const command = document.getElementById('dockerCommand').textContent.trim();
-  try {
-    await navigator.clipboard.writeText(command);
-    copyCommandButton.textContent = '已复制';
-    showToast('Docker 启动命令已复制');
-  } catch {
-    const helper = document.createElement('textarea');
-    helper.value = command;
-    helper.style.position = 'fixed';
-    helper.style.opacity = '0';
-    document.body.appendChild(helper);
-    helper.select();
-    const copied = document.execCommand('copy');
-    helper.remove();
-    copyCommandButton.textContent = copied ? '已复制' : '请手动复制';
-    if (copied) showToast('Docker 启动命令已复制');
-  }
-  setTimeout(() => { copyCommandButton.textContent = '复制'; }, 2500);
+copyButtons.forEach((button) => {
+  button.addEventListener('click', async () => {
+    const command = document.getElementById(button.dataset.copyTarget).textContent.trim();
+    let copied = false;
+    try {
+      await navigator.clipboard.writeText(command);
+      copied = true;
+    } catch {
+      const helper = document.createElement('textarea');
+      helper.value = command;
+      helper.style.position = 'fixed';
+      helper.style.opacity = '0';
+      document.body.appendChild(helper);
+      helper.select();
+      copied = document.execCommand('copy');
+      helper.remove();
+    }
+    button.textContent = copied ? '已复制' : '请手动复制';
+    if (copied) showToast(`${button.dataset.copyLabel}已复制`);
+    setTimeout(() => { button.textContent = '复制'; }, 2500);
+  });
 });
 
 updateExample(activeState);
