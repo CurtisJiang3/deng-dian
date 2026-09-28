@@ -6,7 +6,6 @@
 
 数据来源：[数字生命卡兹克](https://aihot.news/about)的 [AIHOT API](https://aihot.news/agent)。
 
-工程搭建者：鹏教科技研发部蒋宽龙。
 
 ## 当前行为
 
